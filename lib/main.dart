@@ -15,13 +15,17 @@ import 'package:google_fonts/google_fonts.dart';
 //   );
 // }
 
-late List<CameraDescription> _cameras;
+List<CameraDescription>? cameras;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  _cameras = await availableCameras();
-  runApp(const CameraApp());
+  try {
+    cameras = await availableCameras();
+    runApp(const CameraApp());
+  } catch (err) {
+    print(err);
+  }
 }
 
 /// CameraApp is the Main Application.
@@ -39,7 +43,7 @@ class _CameraAppState extends State<CameraApp> {
   @override
   void initState() {
     super.initState();
-    controller = CameraController(_cameras[0], ResolutionPreset.max);
+    controller = CameraController(cameras![0], ResolutionPreset.max);
     controller.initialize().then((_) {
       if (!mounted) {
         return;
