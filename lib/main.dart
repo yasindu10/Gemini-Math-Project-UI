@@ -1,48 +1,37 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// void main() {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(
-//     MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData.dark().copyWith(
-//         textTheme:
-//             GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
-//       ),
-//     ),
-//   );
-// }
-
-List<CameraDescription>? cameras;
+import 'package:math_ai_project/pages/camera_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    cameras = await availableCameras();
-    runApp(const CameraApp());
-  } catch (err) {
-    print(err);
-  }
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        textTheme:
+            GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
+      ),
+      home: const MyApp(),
+    ),
+  );
 }
 
-/// CameraApp is the Main Application.
-class CameraApp extends StatefulWidget {
-  /// Default Constructor
-  const CameraApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<CameraApp> createState() => _CameraAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _CameraAppState extends State<CameraApp> {
+class _MyAppState extends State<MyApp> {
   late CameraController controller;
 
-  @override
-  void initState() {
-    super.initState();
+  List<CameraDescription>? cameras;
+
+  Future<void> getCameras() async {
+    cameras = await availableCameras();
+
     controller = CameraController(cameras![0], ResolutionPreset.max);
     controller.initialize().then((_) {
       if (!mounted) {
@@ -53,14 +42,19 @@ class _CameraAppState extends State<CameraApp> {
       if (e is CameraException) {
         switch (e.code) {
           case 'CameraAccessDenied':
-            // Handle access errors here.
             break;
           default:
-            // Handle other errors here.
             break;
         }
       }
+      setState(() {});
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCameras();
   }
 
   @override
@@ -71,11 +65,21 @@ class _CameraAppState extends State<CameraApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (!controller.value.isInitialized) {
-      return Container();
-    }
-    return MaterialApp(
-      home: CameraPreview(controller),
-    );
+    // if (!controller.value.isInitialized) {
+    //   return ;
+    // }
+    // return ;
+    return cameras == null
+        // loading the cameras
+        ? const Center(
+            child: CircularProgressIndicator(
+              color: Colors.blueAccent,
+            ),
+          )
+        : !controller.value.isInitialized
+            ? const Center(
+                child: Text('No Cameras Found'),
+              )
+            : CameraPage(controller: controller);
   }
 }
