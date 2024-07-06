@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^6.2.1
   camera: ^0.11.0+1
   gap: ^3.0.1
+  image_cropper: ^7.1.0
 
 dev_dependencies:
   flutter_test:

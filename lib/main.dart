@@ -65,21 +65,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // if (!controller.value.isInitialized) {
-    //   return ;
-    // }
-    // return ;
-    return cameras == null
-        // loading the cameras
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.blueAccent,
-            ),
-          )
-        : !controller.value.isInitialized
-            ? const Center(
-                child: Text('No Cameras Found'),
-              )
-            : CameraPage(controller: controller);
+    return Scaffold(
+      body: cameras == null
+          // loading the cameras
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blueAccent,
+              ),
+            )
+          : !controller.value.isInitialized
+              ? const Center(
+                  child: Text('No Cameras Found'),
+                )
+              : CameraPage(controller: controller),
+    );
   }
 }
