@@ -1,9 +1,10 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'dart:developer' as console;
 
 class CameraPage extends StatefulWidget {
   const CameraPage({
@@ -21,36 +22,56 @@ class _CameraPageState extends State<CameraPage> {
   File? _imageFile;
 
   Future<void> _cropImage(String imagePath) async {
-    final croppedFile = await ImageCropper().cropImage(
-      sourcePath: imagePath,
-      compressFormat: ImageCompressFormat.jpg,
-      uiSettings: [
-        AndroidUiSettings(
-          toolbarTitle: 'Cropper',
-          toolbarColor: Colors.deepOrange,
-          toolbarWidgetColor: Colors.white,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.square,
-          ],
-        ),
-        IOSUiSettings(
-          title: 'Cropper',
-          aspectRatioPresets: [
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.square,
-          ],
-        ),
-        WebUiSettings(
-          context: context,
-        ),
-      ],
-    );
+    try {
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: imagePath,
+        compressFormat: ImageCompressFormat.jpg,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.black87,
+            toolbarWidgetColor: Colors.white,
+            aspectRatioPresets: [
+              CropAspectRatioPreset.original,
+              CropAspectRatioPreset.square,
+            ],
+          ),
+          IOSUiSettings(
+            title: 'Cropper',
+            aspectRatioPresets: [
+              CropAspectRatioPreset.original,
+              CropAspectRatioPreset.square,
+            ],
+          ),
+          WebUiSettings(
+            context: context,
+          ),
+        ],
+      );
 
-    if (croppedFile != null) {
-      setState(() {
-        _imageFile = File(croppedFile.path);
+      if (croppedFile != null) {
+        setState(() {
+          _imageFile = File(croppedFile.path);
+        });
+      }
+
+      console.log('calling');
+
+      FormData formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(_imageFile!.path,
+            filename: 'example.jpg'),
       });
+
+      Dio dio = Dio();
+
+      var response = await dio.get(
+        'https://gemini-math-project-production.up.railway.app/api/v1/ai',
+        data: formData,
+      );
+
+      console.log(response.data);
+    } catch (err) {
+      console.log('Error with ' + err.toString());
     }
   }
 
