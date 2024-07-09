@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'pages/home_page.dart';
+import 'package:math_ai_project/pages/camera_page.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -78,17 +77,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: cameras == null
-          // loading the cameras
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.blueAccent,
-              ),
-            )
-          : HomePage(
-              isCameraFound: controller.value.isInitialized,
-              controller: controller,
-            ),
-    );
+        body: cameras == null
+            // loading the cameras
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blueAccent,
+                ),
+              )
+            // : HomePage(
+            //     isCameraFound: controller.value.isInitialized,
+            //     controller: controller,
+            //   ),
+            : CameraPage(controller: controller));
   }
 }

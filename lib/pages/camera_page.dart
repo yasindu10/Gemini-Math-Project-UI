@@ -44,7 +44,9 @@ class _CameraPageState extends State<CameraPage> {
           children: [
             Center(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  takePicture(size);
+                },
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(50, 0, 0, 0),
