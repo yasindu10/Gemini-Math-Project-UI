@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
       //         isCameraFound: controller.value.isInitialized,
       //         controller: controller,
       //       ),
-      home: HomePage(isCameraFound: false, controller: null),
+      home: const HomePage(isCameraFound: false, controller: null),
     );
   }
 }

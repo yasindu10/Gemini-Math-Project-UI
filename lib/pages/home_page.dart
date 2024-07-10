@@ -1,12 +1,16 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:math_ai_project/components/loadings.dart';
 import 'package:math_ai_project/widgets/asset_thumbnails.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage(
-      {super.key, required this.isCameraFound, required this.controller});
+  const HomePage({
+    super.key,
+    required this.isCameraFound,
+    required this.controller,
+  });
 
   final bool isCameraFound;
   final CameraController? controller;
@@ -23,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _fetchAssets() async {
     assets = await PhotoManager.getAssetListRange(
       start: 0,
-      end: 100000,
+      end: 100,
     );
 
     setState(() {
@@ -128,8 +132,12 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-              itemCount: assets.length,
+              itemCount: _isLoading ? 12 : assets.length,
               itemBuilder: (_, index) {
+                if (_isLoading) {
+                  return loadingWidget();
+                }
+
                 if (assets[index].type == AssetType.video) {
                   return const SizedBox();
                 }
