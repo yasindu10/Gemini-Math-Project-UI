@@ -40,6 +40,9 @@ dependencies:
   gap: ^3.0.1
   image_cropper: ^7.1.0
   dio: ^5.5.0+1
+  photo_manager: ^3.2.0
+  permission_handler: ^11.3.1
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
