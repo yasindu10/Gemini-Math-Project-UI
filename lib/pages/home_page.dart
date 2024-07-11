@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:math_ai_project/components/loadings.dart';
+import 'package:math_ai_project/pages/camera_page.dart';
 import 'package:math_ai_project/widgets/asset_thumbnails.dart';
 import 'package:photo_manager/photo_manager.dart';
 
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
   });
 
   final bool isCameraFound;
-  final CameraController? controller;
+  final CameraController controller;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -37,7 +38,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getPermission() async {
     final result = await PhotoManager.requestPermissionExtend();
-
     if (result.isAuth) {
       await _fetchAssets();
     }
@@ -46,13 +46,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     getPermission();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -85,7 +83,14 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black26,
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CameraPage(controller: widget.controller),
+                            ));
+                      },
                       icon: const Icon(Icons.camera_alt_rounded),
                     ),
                   ),
@@ -106,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Gallery',
                     style: TextStyle(
                       fontSize: 16,

@@ -19,10 +19,10 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   void takePicture(size) async {
     try {
-      final XFile file = await widget.controller.takePicture();
+      XFile? file = await widget.controller.takePicture();
       final result = await cropImage(file.path, context);
 
-      showCustomBottomSheet(context, size, result.toString());
+      showCustomBottomSheet(context, size, result.toString(), file);
     } catch (e) {
       print('Error taking picture: $e');
     }
@@ -37,6 +37,32 @@ class _CameraPageState extends State<CameraPage> {
           height: size.height,
           width: size.width,
           child: CameraPreview(widget.controller),
+        ),
+        SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(34, 0, 0, 0),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                ),
+              ),
+              const Gap(25),
+            ],
+          ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,

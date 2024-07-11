@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:developer' as console;
 
-Future<String?> cropImage(String imagePath, BuildContext context) async {
+Future<String> cropImage(String imagePath, BuildContext context) async {
   try {
     File? imageFile;
 
@@ -41,7 +41,7 @@ Future<String?> cropImage(String imagePath, BuildContext context) async {
 
     return await uploadImage(imageFile);
   } catch (err) {
-    console.log('Error with ' + err.toString());
+    return 'Error with $err';
   }
 }
 
