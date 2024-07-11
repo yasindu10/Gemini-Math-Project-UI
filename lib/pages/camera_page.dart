@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:math_ai_project/components/loadings.dart';
+import 'package:math_ai_project/constants/constants.dart';
 import 'package:math_ai_project/controller/image_controller.dart';
 import 'package:math_ai_project/utils/custom_dialogs.dart';
 
@@ -19,10 +21,18 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   void takePicture(size) async {
     try {
-      XFile? file = await widget.controller.takePicture();
-      final result = await cropImage(file.path, context);
+      XFile file = await widget.controller.takePicture();
+      showLoadingDialog(context: context);
 
-      showCustomBottomSheet(context, size, result.toString(), file);
+      final result = await cropImage(file.path, context);
+      Navigator.pop(context);
+
+      showCustomBottomSheet(
+        file: file,
+        size: size,
+        context: context,
+        solution: result.toString(),
+      );
     } catch (e) {
       print('Error taking picture: $e');
     }
@@ -39,6 +49,7 @@ class _CameraPageState extends State<CameraPage> {
           child: CameraPreview(widget.controller),
         ),
         SafeArea(
+          ////// left button
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +60,7 @@ class _CameraPageState extends State<CameraPage> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(34, 0, 0, 0),
+                    color: bgColor,
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(10),
@@ -65,6 +76,7 @@ class _CameraPageState extends State<CameraPage> {
           ),
         ),
         Column(
+          ////// camera button
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -75,7 +87,7 @@ class _CameraPageState extends State<CameraPage> {
                 },
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(50, 0, 0, 0),
+                    color: bgColor,
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(15),

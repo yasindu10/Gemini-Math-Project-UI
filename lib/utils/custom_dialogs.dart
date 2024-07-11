@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:math_ai_project/constants/constants.dart';
 
-void showCustomBottomSheet(context, Size size, String solution, XFile file) {
+void showCustomBottomSheet(
+    {required BuildContext context,
+    required Size size,
+    required String solution,
+    required XFile file}) {
   final exampleFile = File(file.path);
   showModalBottomSheet(
     backgroundColor: bgColor,
@@ -35,7 +39,7 @@ void showCustomBottomSheet(context, Size size, String solution, XFile file) {
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             width: size.width, // Assuming size is defined somewhere
             decoration: BoxDecoration(
-              color: const Color.fromARGB(106, 14, 14, 14),
+              color: const Color.fromARGB(41, 14, 14, 14),
               borderRadius: BorderRadius.circular(10),
             ),
             child: AspectRatio(
@@ -61,7 +65,7 @@ void showCustomBottomSheet(context, Size size, String solution, XFile file) {
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             width: size.width,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(106, 14, 14, 14),
+              color: const Color.fromARGB(41, 14, 14, 14),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(

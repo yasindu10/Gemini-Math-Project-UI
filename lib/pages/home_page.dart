@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'View All',
                       style: TextStyle(
                         color: Colors.blueAccent,
