@@ -37,16 +37,18 @@ Future<String> cropImage(String imagePath, BuildContext context) async {
 
     if (croppedFile != null) {
       imageFile = File(croppedFile.path);
+      return await uploadImage(imageFile);
     }
 
-    return await uploadImage(imageFile);
+    return 'canceled';
   } catch (err) {
     return 'Error with $err';
   }
 }
 
 Future<String> uploadImage(File? imageFile) async {
-  String uploadUrl = 'api-url';
+  String uploadUrl =
+      'https://gemini-math-project-production.up.railway.app/api/v1/ai/';
 
   var request = http.MultipartRequest('GET', Uri.parse(uploadUrl));
   request.files

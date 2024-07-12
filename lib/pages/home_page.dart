@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                 if (assets[index].type == AssetType.video) {
                   return const SizedBox();
                 }
-                return AssetThumbnail(asset: assets[0]);
+                return AssetThumbnail(asset: assets[index]);
               },
             ),
           ],
