@@ -10,13 +10,13 @@ Widget loadingWidget() {
   );
 }
 
-void showLoadingDialog({required BuildContext context}) {
+void showLoading({required BuildContext context}) {
   showDialog(
     barrierDismissible: false,
     context: context,
     builder: (context) => Center(
       child: LoadingAnimationWidget.halfTriangleDot(
-        color:const Color.fromARGB(255, 58, 58, 65),
+        color: const Color.fromARGB(255, 58, 58, 65),
         size: 70,
       ),
     ),

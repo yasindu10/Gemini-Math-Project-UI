@@ -4,8 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:developer' as console;
+import 'package:math_ai_project/constants/constants.dart';
 
-Future<String> cropImage(String imagePath, BuildContext context) async {
+Future<String?> cropImage(String imagePath, BuildContext context) async {
   try {
     File? imageFile;
 
@@ -15,7 +16,7 @@ Future<String> cropImage(String imagePath, BuildContext context) async {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.black87,
+          toolbarColor: bgColor,
           toolbarWidgetColor: Colors.white,
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -40,9 +41,9 @@ Future<String> cropImage(String imagePath, BuildContext context) async {
       return await uploadImage(imageFile);
     }
 
-    return 'canceled';
+    return 'cancel';
   } catch (err) {
-    return 'Error with $err';
+    return null;
   }
 }
 

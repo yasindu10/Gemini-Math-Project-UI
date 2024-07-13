@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:math_ai_project/constants/constants.dart';
 
-void showCustomBottomSheet({
+void showResultDialog({
   required BuildContext context,
   required Size size,
   required String solution,

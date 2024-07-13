@@ -1,18 +1,11 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_ai_project/constants/constants.dart';
-import 'package:math_ai_project/pages/home_page.dart';
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
+import 'package:math_ai_project/helper/http_overrides.dart';
+import 'package:math_ai_project/pages/page_controller.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -32,6 +25,7 @@ class _MyAppState extends State<MyApp> {
 
   List<CameraDescription>? cameras;
 
+  // get cameras
   Future<void> getCameras() async {
     cameras = await availableCameras();
 
@@ -83,7 +77,7 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.blueAccent,
               ),
             )
-          : HomePage(
+          : CustomPageController(
               isCameraFound: controller.value.isInitialized,
               controller: controller,
             ),

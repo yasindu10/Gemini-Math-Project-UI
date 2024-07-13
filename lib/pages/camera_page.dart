@@ -1,11 +1,12 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:math_ai_project/components/loadings.dart';
+import 'package:math_ai_project/utils/loadings.dart';
 import 'package:math_ai_project/constants/constants.dart';
 import 'package:math_ai_project/controller/image_controller.dart';
 import 'package:math_ai_project/utils/canves_paint.dart';
 import 'package:math_ai_project/utils/custom_dialogs.dart';
+import 'package:math_ai_project/utils/messages.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({
@@ -23,12 +24,18 @@ class _CameraPageState extends State<CameraPage> {
   void takePicture(size) async {
     try {
       XFile file = await widget.controller.takePicture();
-      showLoadingDialog(context: context); // start the loading
+      showLoading(context: context); // start the loading
 
       final result = await cropImage(file.path, context);
       Navigator.pop(context); // stop the loading
 
-      showCustomBottomSheet(
+      if (result == null) {
+        return showErrorMessage(context, 'Error, try again');
+      } else if (result == 'cancel') {
+        return showMessage(context, 'Closed');
+      }
+
+      showResultDialog(
         file: file,
         size: size,
         context: context,
