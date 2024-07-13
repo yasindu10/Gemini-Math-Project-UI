@@ -42,6 +42,8 @@ class _CustomPageControllerState extends State<CustomPageController> {
             margin: const EdgeInsets.symmetric(horizontal: 17),
             child: const CircleAvatar(
               backgroundColor: Colors.black26,
+              backgroundImage: NetworkImage(
+                  'https://avatars.githubusercontent.com/u/94032631?v=4'),
             ),
           )
         ],

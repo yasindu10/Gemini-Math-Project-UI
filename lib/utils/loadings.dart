@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:math_ai_project/constants/constants.dart';
 
 Widget loadingWidget() {
   return Container(
@@ -16,7 +17,7 @@ void showLoading({required BuildContext context}) {
     context: context,
     builder: (context) => Center(
       child: LoadingAnimationWidget.halfTriangleDot(
-        color: const Color.fromARGB(255, 58, 58, 65),
+        color: bgColor,
         size: 70,
       ),
     ),

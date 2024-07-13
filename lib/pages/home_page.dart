@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
       end: 20,
     );
 
+    assets = assets.where((asset) => asset.type == AssetType.image).toList();
+
     setState(() {
       _isLoading = false;
     });
@@ -131,9 +133,6 @@ class _HomePageState extends State<HomePage> {
                 return loadingWidget();
               }
 
-              if (assets[index].type == AssetType.video) {
-                return const SizedBox();
-              }
               return AssetThumbnail(asset: assets[index]);
             },
           ),
