@@ -80,20 +80,19 @@ void showCustomBottomSheet({
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.thumb_up_alt_outlined,
+                      GestureDetector(
+                        child: const Icon(
+                          Icons.copy_rounded,
                           size: 19,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
+                      const Gap(12),
+                      GestureDetector(
+                        child: const Icon(
                           Icons.thumb_down_alt_outlined,
                           size: 19,
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
@@ -103,8 +102,8 @@ void showCustomBottomSheet({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'MathLengs can make mistakes. Check image quility.',
-                style: const TextStyle(fontSize: 13),
+                'MathLens can make mistakes. Check image quality.',
+                style: TextStyle(fontSize: 13),
               )
             ],
           )

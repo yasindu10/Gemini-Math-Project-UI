@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _fetchAssets() async {
     assets = await PhotoManager.getAssetListRange(
       start: 0,
-      end: 100,
+      end: 20,
     );
 
     setState(() {
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text('Math AI'),
+        title: const Text('Math Lens'),
         actions: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 17),

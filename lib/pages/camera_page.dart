@@ -23,17 +23,16 @@ class _CameraPageState extends State<CameraPage> {
   void takePicture(size) async {
     try {
       XFile file = await widget.controller.takePicture();
-      // showLoadingDialog(context: context); // start the loading
+      showLoadingDialog(context: context); // start the loading
 
-      // final result = await cropImage(file.path, context);
-      // Navigator.pop(context); // stop the loading
+      final result = await cropImage(file.path, context);
+      Navigator.pop(context); // stop the loading
 
       showCustomBottomSheet(
         file: file,
         size: size,
         context: context,
-        // solution: result.toString(),
-        solution: 'the best solution',
+        solution: result.toString(),
       );
     } catch (e) {
       print('Error taking picture: $e');
@@ -82,47 +81,37 @@ class _CameraPageState extends State<CameraPage> {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 100),
-            child: Column(
-              ////// camera button
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            takePicture(size);
-                          },
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: bgColor,
-                              shape: BoxShape.circle,
-                            ),
-                            padding: const EdgeInsets.all(14),
-                            child: const Icon(
-                              Icons.camera_rounded,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
+          Column(
+            ////// camera button
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        takePicture(size);
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: bgColor,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(14),
+                        child: const Icon(
+                          Icons.camera_rounded,
+                          color: Colors.white,
+                          size: 30,
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                const Gap(25),
-              ],
-            ),
+                ],
+              ),
+              const Gap(25),
+            ],
           ),
         ],
       ),
