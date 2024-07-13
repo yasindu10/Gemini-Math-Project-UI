@@ -39,8 +39,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> getPermission() async {
     final result = await PhotoManager.requestPermissionExtend();
     if (result.isAuth) {
+      print('AUTH');
       await _fetchAssets();
     }
+    print('no auth');
   }
 
   @override

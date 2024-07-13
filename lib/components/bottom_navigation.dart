@@ -2,7 +2,11 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavbar extends StatelessWidget {
-  const CustomBottomNavbar({super.key, required this.onChanged, required this.selectedIndex,});
+  const CustomBottomNavbar({
+    super.key,
+    required this.onChanged,
+    required this.selectedIndex,
+  });
 
   final Function(int value) onChanged;
   final int selectedIndex;
@@ -16,9 +20,9 @@ class CustomBottomNavbar extends StatelessWidget {
       tabBackgroundColor: Colors.white10,
       tabBorderRadius: 15,
       gap: 10, // the tab button gap between icon and text
-      iconSize: 24,
+      iconSize: 20,
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 25,
         vertical: 20,
       ), // navigation bar padding
       tabMargin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
