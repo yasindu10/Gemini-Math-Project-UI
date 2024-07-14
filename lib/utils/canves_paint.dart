@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// panting the rectangle on camera 
 class CornerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
