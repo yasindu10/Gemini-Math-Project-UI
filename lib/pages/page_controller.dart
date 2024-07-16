@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:math_ai_project/components/bottom_navigation.dart';
+import 'package:math_ai_project/pages/dashboard_page.dart';
 import 'package:math_ai_project/pages/home_page.dart';
 
 class CustomPageController extends StatefulWidget {
@@ -28,9 +29,7 @@ class _CustomPageControllerState extends State<CustomPageController> {
         controller: widget.controller,
         isCameraFound: widget.isCameraFound,
       ),
-      const Center(
-        child: Text('Dashboard'),
-      )
+      const Dashboard(),
     ];
 
     return Scaffold(
