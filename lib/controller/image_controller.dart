@@ -49,7 +49,7 @@ Future<String?> cropImage(String imagePath, BuildContext context) async {
 
 Future<String> uploadImage(File? imageFile) async {
   String uploadUrl =
-      'https://gemini-math-project-production.up.railway.app/api/v1/ai/';
+      'your server request url';
 
   var request = http.MultipartRequest('GET', Uri.parse(uploadUrl));
   request.files
